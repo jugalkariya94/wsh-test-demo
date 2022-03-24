@@ -5637,7 +5637,7 @@ function CreateBook() {
                 errors.price = 'Book price is required';
               }
 
-              if (price >= compareAtPrice) {
+              if (compareAtPrice && price >= compareAtPrice) {
                 errors.compareAtPrice = 'Book price should be less than compare at price';
               }
 

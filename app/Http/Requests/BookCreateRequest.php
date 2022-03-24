@@ -28,7 +28,7 @@ class BookCreateRequest extends FormRequest
             'title' => 'required',
             'author' => 'required',
             'price' => 'required|numeric',
-            'compare_at_price' => 'required|numeric|gt:price',
+            'compare_at_price' => 'numeric|nullable|gt:price',
             'no_of_pages' => 'required|numeric',
             'wholesale_price' => 'required|numeric|lt:price',
             'body_html' => 'required',
