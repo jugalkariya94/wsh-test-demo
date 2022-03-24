@@ -29,22 +29,49 @@ export default function CreateBook() {
     const createBook = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData()
+        const formData = new FormData();
 
-        formData.append('title', name)
-        formData.append('author', author)
-        formData.append('price', price)
-        formData.append('compare_at_price', compareAtPrice)
-        formData.append('no_of_pages', noOfPages)
-        formData.append('wholesale_price', wholesalePrice)
-        formData.append('body_html', description)
-        formData.append('image', image)
+        let errors = {};
+        if (name === '') {
+            errors.name = 'Book title is required';
+        }
+        if (author === '') {
+            errors.author = 'Book author is required';
+        }
+        if (price === '') {
+            errors.price = 'Book price is required';
+        }
+        if (price >= compareAtPrice) {
+            errors.compareAtPrice = 'Book price should be less than compare at price';
+        }
+        if (noOfPages === '') {
+            errors.pages = 'Number of pages is required';
+        }
+        if (wholesalePrice === '') {
+            errors.wholesalePrice = 'Wholesale Price is required';
+        }
+        if (description === '') {
+            errors.description = 'Description is required';
+        }
+
+        if (Object.entries(errors).length) {
+            setValidationError(errors);
+            return false;
+        }
+        formData.append('title', name);
+        formData.append('author', author);
+        formData.append('price', price);
+        formData.append('compare_at_price', compareAtPrice);
+        formData.append('no_of_pages', noOfPages);
+        formData.append('wholesale_price', wholesalePrice);
+        formData.append('body_html', description);
+        formData.append('image', image);
 
         await window.axios.post(`/api/books`, formData).then(({data})=>{
             Swal.fire({
                 icon:"success",
                 text: 'Book created successfully'
-            })
+            });
             // navigate("/")
         }).catch(({response})=>{
             if(response.status===422){
@@ -91,7 +118,7 @@ export default function CreateBook() {
                                                 <Form.Label>Name</Form.Label>
                                                 <Form.Control type="text" value={name} onChange={(event)=>{
                                                     setName(event.target.value)
-                                                }}/>
+                                                }} isInvalid={validationError.name}/>
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -101,7 +128,7 @@ export default function CreateBook() {
                                                 <Form.Label>Author</Form.Label>
                                                 <Form.Control type="text" value={author} onChange={(event)=>{
                                                     setAuthor(event.target.value)
-                                                }}/>
+                                                }} isInvalid={validationError.author}/>
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -111,7 +138,7 @@ export default function CreateBook() {
                                                 <Form.Label>Description</Form.Label>
                                                 <Form.Control as="textarea" rows={3} value={description} onChange={(event)=>{
                                                     setDescription(event.target.value)
-                                                }}/>
+                                                }} isInvalid={validationError.description}/>
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -119,17 +146,17 @@ export default function CreateBook() {
                                         <Col>
                                             <Form.Group controlId="Price">
                                                 <Form.Label>Price</Form.Label>
-                                                <Form.Control type="text" value={price} onChange={(event)=>{
+                                                <Form.Control type="number" value={price} onChange={(event)=>{
                                                     setPrice(event.target.value)
-                                                }}/>
+                                                }} isInvalid={validationError.price}/>
                                             </Form.Group>
                                         </Col>
                                         <Col>
                                             <Form.Group controlId="CompareAtPrice">
                                                 <Form.Label>Compare At Price</Form.Label>
-                                                <Form.Control type="text" value={compareAtPrice} onChange={(event)=>{
+                                                <Form.Control type="number" value={compareAtPrice} onChange={(event)=>{
                                                     setCompareAtPrice(event.target.value)
-                                                }}/>
+                                                }} isInvalid={validationError.compareAtPrice}/>
                                             </Form.Group>
                                         </Col>
                                     </Row>
@@ -137,9 +164,9 @@ export default function CreateBook() {
                                         <Col>
                                             <Form.Group controlId="NoOfPages">
                                                 <Form.Label>Number of pages</Form.Label>
-                                                <Form.Control type="text" value={noOfPages} onChange={(event)=>{
+                                                <Form.Control type="number" value={noOfPages} onChange={(event)=>{
                                                     setNoOfPages(event.target.value)
-                                                }}/>
+                                                }} isInvalid={validationError.pages}/>
                                             </Form.Group>
                                         </Col>
                                         <Col>
@@ -147,7 +174,7 @@ export default function CreateBook() {
                                                 <Form.Label>Wholesale Price</Form.Label>
                                                 <Form.Control type="text" value={wholesalePrice} onChange={(event)=>{
                                                     setWholesalePrice(event.target.value)
-                                                }}/>
+                                                }}  isInvalid={validationError.wholesalePrice}/>
                                             </Form.Group>
                                         </Col>
                                     </Row>

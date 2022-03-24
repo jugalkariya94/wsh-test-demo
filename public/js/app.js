@@ -5616,13 +5616,52 @@ function CreateBook() {
 
   var createBook = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(e) {
-      var formData;
+      var formData, errors;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               e.preventDefault();
               formData = new FormData();
+              errors = {};
+
+              if (name === '') {
+                errors.name = 'Book title is required';
+              }
+
+              if (author === '') {
+                errors.author = 'Book author is required';
+              }
+
+              if (price === '') {
+                errors.price = 'Book price is required';
+              }
+
+              if (price >= compareAtPrice) {
+                errors.compareAtPrice = 'Book price should be less than compare at price';
+              }
+
+              if (noOfPages === '') {
+                errors.pages = 'Number of pages is required';
+              }
+
+              if (wholesalePrice === '') {
+                errors.wholesalePrice = 'Wholesale Price is required';
+              }
+
+              if (description === '') {
+                errors.description = 'Description is required';
+              }
+
+              if (!Object.entries(errors).length) {
+                _context.next = 13;
+                break;
+              }
+
+              setValidationError(errors);
+              return _context.abrupt("return", false);
+
+            case 13:
               formData.append('title', name);
               formData.append('author', author);
               formData.append('price', price);
@@ -5631,7 +5670,7 @@ function CreateBook() {
               formData.append('wholesale_price', wholesalePrice);
               formData.append('body_html', description);
               formData.append('image', image);
-              _context.next = 12;
+              _context.next = 23;
               return window.axios.post("/api/books", formData).then(function (_ref2) {
                 var data = _ref2.data;
                 sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
@@ -5651,7 +5690,7 @@ function CreateBook() {
                 }
               });
 
-            case 12:
+            case 23:
             case "end":
               return _context.stop();
           }
@@ -5712,7 +5751,8 @@ function CreateBook() {
                         value: name,
                         onChange: function onChange(event) {
                           setName(event.target.value);
-                        }
+                        },
+                        isInvalid: validationError.name
                       })]
                     })
                   })
@@ -5727,7 +5767,8 @@ function CreateBook() {
                         value: author,
                         onChange: function onChange(event) {
                           setAuthor(event.target.value);
-                        }
+                        },
+                        isInvalid: validationError.author
                       })]
                     })
                   })
@@ -5744,7 +5785,8 @@ function CreateBook() {
                         value: description,
                         onChange: function onChange(event) {
                           setDescription(event.target.value);
-                        }
+                        },
+                        isInvalid: validationError.description
                       })]
                     })
                   })
@@ -5755,11 +5797,12 @@ function CreateBook() {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Label, {
                         children: "Price"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Control, {
-                        type: "text",
+                        type: "number",
                         value: price,
                         onChange: function onChange(event) {
                           setPrice(event.target.value);
-                        }
+                        },
+                        isInvalid: validationError.price
                       })]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -5768,11 +5811,12 @@ function CreateBook() {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Label, {
                         children: "Compare At Price"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Control, {
-                        type: "text",
+                        type: "number",
                         value: compareAtPrice,
                         onChange: function onChange(event) {
                           setCompareAtPrice(event.target.value);
-                        }
+                        },
+                        isInvalid: validationError.compareAtPrice
                       })]
                     })
                   })]
@@ -5783,11 +5827,12 @@ function CreateBook() {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Label, {
                         children: "Number of pages"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Control, {
-                        type: "text",
+                        type: "number",
                         value: noOfPages,
                         onChange: function onChange(event) {
                           setNoOfPages(event.target.value);
-                        }
+                        },
+                        isInvalid: validationError.pages
                       })]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Col__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -5800,7 +5845,8 @@ function CreateBook() {
                         value: wholesalePrice,
                         onChange: function onChange(event) {
                           setWholesalePrice(event.target.value);
-                        }
+                        },
+                        isInvalid: validationError.wholesalePrice
                       })]
                     })
                   })]
