@@ -15,6 +15,7 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
+            'shopify_id' => $this->faker->randomNumber(5),
             'no_of_pages' => $this->faker->numberBetween(100, 500),
             'author' => $this->faker->name(),
             'wholesale_price' => $this->faker->numberBetween(100, 500)

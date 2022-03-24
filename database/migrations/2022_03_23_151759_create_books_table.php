@@ -14,11 +14,12 @@ class CreateBooksTable extends Migration
     public function up()
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->id();
+            $table->string('shopify_id');
             $table->integer('no_of_pages')->comment('number of pages for book');
             $table->string('author')->comment('author of the book');
             $table->integer('wholesale_price')->comment('wholesale price for book in cents');
             $table->timestamps();
+            $table->primary('shopify_id');
         });
     }
 

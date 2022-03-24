@@ -11,6 +11,8 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'shopify_id';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +22,7 @@ class Book extends Model
         'no_of_pages',
         'author',
         'wholesale_price',
+        'shopify_id',
     ];
 
     /**
