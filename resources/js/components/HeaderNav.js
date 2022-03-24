@@ -8,7 +8,7 @@ function HeaderNav() {
         <>
             <div className="container mt-3 mb-3">
                 <div className="row">
-                    <h2>Laravel CRUD</h2>
+                    <h2>Book Store</h2>
                 </div>
                 <nav className="navbar navbar-expand-lg navbar-light bg-primary p-2">
                     <Link className="navbar-brand" to="/">
