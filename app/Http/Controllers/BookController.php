@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BookCreateRequest;
 use App\Http\Resources\BookCollection;
 use App\Http\Resources\BookResource;
 use App\Models\Book;
@@ -27,19 +28,18 @@ class BookController extends Controller
     public function index()
     {
         return new BookCollection(Book::paginate(2));
-
     }
 
-    public function store(Request $request)
+    public function store(BookCreateRequest $request)
     {
+        // TODO: implement SQL transactions to rollback failed attempts
         try {
             $data = $request->all();
             $book = $this->bookService->save($data);
             return response()->json(['data' => $book, 'success' => true, 'message' => 'Book created successfully.'], \Illuminate\Http\Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Something went wrong.'], \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['success' => false, 'message' => $e->getTrace()], \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-
     }
 
     public function show(Request $request, Book $book)
@@ -48,7 +48,7 @@ class BookController extends Controller
             $bookResponse = BookResource::make($book);
             return response()->json(['data' => $bookResponse, 'success' => true], \Illuminate\Http\Response::HTTP_OK);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Something went wrong.'], \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
+            return response()->json(['success' => false, 'message' => $e->getMessage()], \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
     }

@@ -72,7 +72,7 @@ export default function CreateBook() {
                 icon:"success",
                 text: 'Book created successfully'
             });
-            // navigate("/")
+            navigate("/")
         }).catch(({response})=>{
             if(response.status===422){
                 setValidationError(response.data.errors)
@@ -172,7 +172,7 @@ export default function CreateBook() {
                                         <Col>
                                             <Form.Group controlId="WholesalePrice">
                                                 <Form.Label>Wholesale Price</Form.Label>
-                                                <Form.Control type="text" value={wholesalePrice} onChange={(event)=>{
+                                                <Form.Control type="number" value={wholesalePrice} onChange={(event)=>{
                                                     setWholesalePrice(event.target.value)
                                                 }}  isInvalid={validationError.wholesalePrice}/>
                                             </Form.Group>

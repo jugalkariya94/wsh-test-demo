@@ -29,8 +29,8 @@ class BookService
         // Create book product over shopify
         $productData = ['product' =>
             [
-                'title' => $data['name'],
-                'body_html' => $data['description'],
+                'title' => $data['title'],
+                'body_html' => $data['body_html'],
             ]
         ];
         $productResponse = $this->shopifyAPIService->createProduct($productData);

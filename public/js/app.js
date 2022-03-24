@@ -5676,7 +5676,8 @@ function CreateBook() {
                 sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
                   icon: "success",
                   text: 'Book created successfully'
-                }); // navigate("/")
+                });
+                navigate("/");
               })["catch"](function (_ref3) {
                 var response = _ref3.response;
 
@@ -5841,7 +5842,7 @@ function CreateBook() {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Label, {
                         children: "Wholesale Price"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap_Form__WEBPACK_IMPORTED_MODULE_7__["default"].Control, {
-                        type: "text",
+                        type: "number",
                         value: wholesalePrice,
                         onChange: function onChange(event) {
                           setWholesalePrice(event.target.value);
