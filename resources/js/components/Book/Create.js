@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import ReactDOM from 'react-dom';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import axios from 'axios'
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom'
 
@@ -20,6 +18,7 @@ export default function CreateBook() {
     const [author, setAuthor] = useState("")
     const [wholesalePrice, setWholesalePrice] = useState("")
     const [validationError,setValidationError] = useState({})
+    const [inProgress, setInProgress] = useState(false)
 
 
     const changeHandler = (event) => {
@@ -31,6 +30,7 @@ export default function CreateBook() {
 
         const formData = new FormData();
 
+        setInProgress(true);
         let errors = {};
         if (name === '') {
             errors.name = 'Book title is required';
@@ -56,6 +56,7 @@ export default function CreateBook() {
 
         if (Object.entries(errors).length) {
             setValidationError(errors);
+            setInProgress(false);
             return false;
         }
         formData.append('title', name);
@@ -82,7 +83,7 @@ export default function CreateBook() {
                     icon:"error"
                 })
             }
-        })
+        }).finally(() => { setInProgress(false) })
     }
 
     return (
@@ -186,8 +187,8 @@ export default function CreateBook() {
                                             </Form.Group>
                                         </Col>
                                     </Row>
-                                    <Button variant="primary" className="mt-2" size="lg" block="block" type="submit">
-                                        Save
+                                    <Button variant="primary" className="mt-2" size="lg" block="block" type="submit" disabled={inProgress}>
+                                        Save {inProgress ? ('true') : ('false')}
                                     </Button>
                                 </Form>
                             </div>

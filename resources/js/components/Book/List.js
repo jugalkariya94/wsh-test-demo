@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import axios from 'axios';
-import Swal from 'sweetalert2'
 import Pagination from "react-js-pagination";
 
 export default function List() {
@@ -11,7 +8,6 @@ export default function List() {
     const [totalBooks, setTotalBooks] = useState(0)
     const [currentPage, setCurrentPage] = React.useState(1)
     const [itemsPerPage, setItemsPerPage] = React.useState(2)
-    const paginate = number => setCurrentPage(number)
 
     useEffect(()=>{
         fetchBooks()

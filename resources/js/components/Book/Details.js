@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
 import Swal from 'sweetalert2'
-import Pagination from "react-js-pagination";
 
 export default function Details({match}) {
 
@@ -15,7 +13,6 @@ export default function Details({match}) {
 
     const fetchBook = async (pageNumber = 1) => {
         await window.axios.get(`/api/books/${bookId}`).then(({data})=>{
-            console.log(data)
             setBook(data.data)
         })
     }

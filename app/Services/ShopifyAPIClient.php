@@ -31,16 +31,10 @@ class ShopifyAPIClient
     protected $domain;
 
     /**
-     * Shopify api key
-     * @var $apiKey string
+     * shopify api token
+     * @var $apiToken string
      */
-    protected $apiKey;
-
-    /**
-     * shopify api password
-     * @var $apiPassword string
-     */
-    protected $apiPassword;
+    protected $apiToken;
 
     /**
      * Shopify API Version
@@ -53,10 +47,8 @@ class ShopifyAPIClient
     public function __construct()
     {
         $this->client = new Client();
-        $this->domain = config('shopify.app_domain');
-        $this->apiKey = config('shopify.api_key');
-        $this->apiPassword = config('shopify.api_secret');
-        $this->apiToken = config('shopify.api_token');
+        $this->domain = config('services.shopify.app_domain');
+        $this->apiToken = config('services.shopify.api_token');
         $this->apiVersion = self::API_VERSION;
     }
 
@@ -69,7 +61,7 @@ class ShopifyAPIClient
      */
     protected function request($method, $url, $param = [])
     {
-        $requestURL = 'https://' . $this->apiKey . ':' . $this->apiPassword . '@' . $this->domain . '.myshopify.com/admin/api/' . $this->apiVersion . '/' . $url;
+        $requestURL = 'https://' . $this->domain . '.myshopify.com/admin/api/' . $this->apiVersion . '/' . $url;
         $parameters = [
             'headers' => [
                 'Content-Type' => 'application/json',
