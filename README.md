@@ -17,6 +17,10 @@ Replace DB connection details with your own connection details
     DB_USERNAME=root  
     DB_PASSWORD=
 
+Update the application URL in `.env`
+
+    APP_URL=http://localhost  
+
 Get the Access token from Shopify and add the details into the `.env`
 
     SHOPIFY_API_TOKEN=shpat_shopify_access_token  
